@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Elektron313/social-network/static/css/main.122b097f.chunk.css",
+    "main.js": "/Elektron313/social-network/static/js/main.21d3fdee.chunk.js",
+    "main.js.map": "/Elektron313/social-network/static/js/main.21d3fdee.chunk.js.map",
+    "runtime~main.js": "/Elektron313/social-network/static/js/runtime~main.a654c57b.js",
+    "runtime~main.js.map": "/Elektron313/social-network/static/js/runtime~main.a654c57b.js.map",
+    "static/js/2.a296a163.chunk.js": "/Elektron313/social-network/static/js/2.a296a163.chunk.js",
+    "static/js/2.a296a163.chunk.js.map": "/Elektron313/social-network/static/js/2.a296a163.chunk.js.map",
+    "static/css/3.ee388f0e.chunk.css": "/Elektron313/social-network/static/css/3.ee388f0e.chunk.css",
+    "static/js/3.215abb44.chunk.js": "/Elektron313/social-network/static/js/3.215abb44.chunk.js",
+    "static/js/3.215abb44.chunk.js.map": "/Elektron313/social-network/static/js/3.215abb44.chunk.js.map",
+    "static/css/4.56fe1bf8.chunk.css": "/Elektron313/social-network/static/css/4.56fe1bf8.chunk.css",
+    "static/js/4.08c0369d.chunk.js": "/Elektron313/social-network/static/js/4.08c0369d.chunk.js",
+    "static/js/4.08c0369d.chunk.js.map": "/Elektron313/social-network/static/js/4.08c0369d.chunk.js.map",
+    "index.html": "/Elektron313/social-network/index.html",
+    "precache-manifest.38b8e7270e32693e3ddc7de193dce184.js": "/Elektron313/social-network/precache-manifest.38b8e7270e32693e3ddc7de193dce184.js",
+    "service-worker.js": "/Elektron313/social-network/service-worker.js",
+    "static/css/3.ee388f0e.chunk.css.map": "/Elektron313/social-network/static/css/3.ee388f0e.chunk.css.map",
+    "static/css/4.56fe1bf8.chunk.css.map": "/Elektron313/social-network/static/css/4.56fe1bf8.chunk.css.map",
+    "static/css/main.122b097f.chunk.css.map": "/Elektron313/social-network/static/css/main.122b097f.chunk.css.map",
+    "static/media/preloader.svg": "/Elektron313/social-network/static/media/preloader.6c3daf60.svg",
+    "static/media/user.png": "/Elektron313/social-network/static/media/user.8b1dbb1f.png"
+  }
+}
