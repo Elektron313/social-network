@@ -2,8 +2,16 @@ import React from 'react';
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
+import {UserType} from "../../Types/Types";
 
-let User = ({user, followingInProgress, unfollow, follow}) => {
+type PropsUserType = {
+    user: UserType,
+    followingInProgress: Array<number>,
+    unfollow: (userId: number) => void,
+    follow: (userId: number) => void,
+}
+
+let User: React.FC<PropsUserType> = ({user, followingInProgress, unfollow, follow}) => {
     return (
        <div>
                 <span>
@@ -36,6 +44,6 @@ let User = ({user, followingInProgress, unfollow, follow}) => {
                     </span>
                 </span>
             </div>)
-}
+};
 
 export default User;

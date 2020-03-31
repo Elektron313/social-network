@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {HashRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -27,43 +27,50 @@ class App extends Component {
         if (!this.props.initialized) {
             return <Preloader />
         }
-
+        // console.log('app')
         return (
-                    <div className='app-wrapper'>
-                        <HeaderContainer/>
-                        <Navbar/>
-                        <div className='app-wrapper-content'>
-                            <Route path='/dialogs'
-                                   render={withSuspense(DialogsContainer)}/>
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Switch>
+                        <Route path='/dialogs'
+                               render={withSuspense(DialogsContainer)}/>
 
-                            <Route path='/profile/:userId?'
-                                   render={withSuspense(ProfileContainer)} />
+                        <Route path='/profile/:userId?'
+                               render={withSuspense(ProfileContainer)} />
 
-                            <Route path='/users'
-                                   render={() => <UsersContainer/>}/>
+                        <Route path='/users'
+                               render={() => <UsersContainer/>}/>
 
-                            <Route path='/login'
-                                   render={() => <LoginPage/>}/>
-                        </div>
-                    </div>
+                        <Route path='/login'
+                               render={() => <LoginPage/>}/>
+                        <Redirect from="/" to="/profile" />
+                        <Route path='*'
+                               render={() => <div>404 NOT FOUND</div>}/>
+
+                    </Switch>
+                </div>
+            </div>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
-    initialized: state.app.initialized
-})
+const mapStateToProps = (state) => {
+    // console.log('MapState')
+    return {initialized: state.app.initialized,}
+}
 
 let AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
 
 const SamuraiJSApp = (props) => {
-   return <HashRouter >
+   return <BrowserRouter >
         <Provider store={store}>
             <AppContainer />
         </Provider>
-    </HashRouter>
+    </BrowserRouter>
 };
 
 export default SamuraiJSApp;
