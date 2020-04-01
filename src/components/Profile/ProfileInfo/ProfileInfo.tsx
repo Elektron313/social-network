@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatus from "./ProfileStatus"
 import userPhoto from '../../../assets/images/user.png'
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from './ProfileDataForm';
+import {PropsProfileType} from "../Profile";
+import {ProfileType} from "../../../Types/Types";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
+const ProfileInfo: React.FC<PropsProfileType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
 
     let [editMode, setEditMode] = useState(false);
 
@@ -14,12 +15,13 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
         return <Preloader />
     }
 
-    const onMainPhotoSelected = (e) => {
+    // Пока не понял как типизировать
+    const onMainPhotoSelected = (e: any) => {
         if(e.target.files.length) {
             savePhoto(e.target.files[0])
         }
     };
-    const onSubmit = (formData) => {
+    const onSubmit = (formData: ProfileType) => {
         saveProfile(formData).then(() =>  setEditMode(false));
     };
     return (
@@ -36,7 +38,12 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     )
 };
 
-const ProfileData = ({profile, goToEditForm, isOwner}) => {
+type ProfilePropsType = {
+    profile: ProfileType,
+    goToEditForm: () => void,
+    isOwner: boolean
+}
+const ProfileData: React.FC<ProfilePropsType> = ({profile, goToEditForm, isOwner}) => {
 
     return (
         <div>
@@ -64,7 +71,12 @@ const ProfileData = ({profile, goToEditForm, isOwner}) => {
     )
 };
 
-const Contact = ({contactTittle, contactValue}) => {
+type PropsContactType = {
+    contactTittle: string,
+    contactValue: string
+}
+
+const Contact: React.FC<PropsContactType> = ({contactTittle, contactValue}) => {
 
     return (
         <div className={s.contact}>

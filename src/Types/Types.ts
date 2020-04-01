@@ -5,6 +5,7 @@ export type postType = {
     likesCount: number,
 };
 export type contactsType = {
+    [index:string]: any
     skype: string,
     vk: string,
     facebook: string,
@@ -33,3 +34,5 @@ export type UserType = {
     photos: PhotoType,
     followed: boolean,
 };
+
+
