@@ -1,49 +1,63 @@
 import React from 'react';
-import styles from "./users.module.css";
-import userPhoto from "../../assets/images/user.png";
-import {NavLink} from "react-router-dom";
-import {UserType} from "../../Types/Types";
+import styles from './users.module.css';
+import userPhoto from '../../assets/images/user.png';
+import { NavLink } from 'react-router-dom';
+import { UserType } from '../../Types/Types';
 
 type PropsUserType = {
-    user: UserType,
-    followingInProgress: Array<number>,
-    unfollow: (userId: number) => void,
-    follow: (userId: number) => void,
-}
+    user: UserType;
+    followingInProgress: Array<number>;
+    unfollow: (userId: number) => void;
+    follow: (userId: number) => void;
+};
 
-let User: React.FC<PropsUserType> = ({user, followingInProgress, unfollow, follow}) => {
+const User: React.FC<PropsUserType> = ({ user, followingInProgress, unfollow, follow }) => {
     return (
-       <div>
+        <div>
+            <span>
+                <div>
+                    <NavLink to={'/profile/' + user.id}>
+                        <img
+                            src={user.photos.small != null ? user.photos.small : userPhoto}
+                            className={styles.userPhoto}
+                            alt={'UserPhoto'}
+                        />
+                    </NavLink>
+                </div>
+                <div>
+                    {user.followed ? (
+                        <button
+                            disabled={followingInProgress.some((id) => id === user.id)}
+                            onClick={() => {
+                                unfollow(user.id);
+                            }}
+                        >
+                            Unfollow
+                        </button>
+                    ) : (
+                        <button
+                            disabled={followingInProgress.some((id) => id === user.id)}
+                            onClick={() => {
+                                follow(user.id);
+                            }}
+                        >
+                            Follow
+                        </button>
+                    )}
+                </div>
+            </span>
+            <span>
                 <span>
-                    <div>
-                       <NavLink to={'/profile/' + user.id}>
-                        <img src={user.photos.small != null ? user.photos.small : userPhoto}
-                             className={styles.userPhoto}/>
-                       </NavLink>
-                    </div>
-                    <div>
-                        {user.followed
-                            ? <button disabled={followingInProgress
-                                .some(id => id === user.id)}
-                                      onClick={() => { unfollow(user.id) }}>
-                                Unfollow</button>
-                            : <button disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => { follow(user.id) }}>
-                                      Follow</button>}
-
-                    </div>
+                    <div>{user.name}</div>
+                    <div>{user.status}</div>
                 </span>
                 <span>
-                    <span>
-                        <div>{user.name}</div>
-                        <div>{user.status}</div>
-                    </span>
-                    <span>
-                        <div>{"user.location.country"}</div>
-                        <div>{"user.location.city"}</div>
-                    </span>
+                    <div>{'user.location.country'}</div>
+                    <div>{'user.location.city'}</div>
                 </span>
-            </div>)
+            </span>
+        </div>
+    );
 };
 
 export default User;

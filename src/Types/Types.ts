@@ -1,38 +1,35 @@
-
 export type postType = {
-    id: number,
-    message: string,
-    likesCount: number,
+    id: number;
+    message: string;
+    likesCount: number;
 };
 export type contactsType = {
-    [index:string]: any
-    skype: string,
-    vk: string,
-    facebook: string,
-    twitter: string,
-    instagram: string,
-    youtube: string,
-    github: string,
-    mainLink: string,
+    [index: string]: string;
+    skype: string;
+    vk: string;
+    facebook: string;
+    twitter: string;
+    instagram: string;
+    youtube: string;
+    github: string;
+    mainLink: string;
 };
 export type PhotoType = {
-    small: string | null,
-    large: string | null,
-}
+    small: string | null;
+    large: string | null;
+};
 export type ProfileType = {
-    aboutMe: string,
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    contacts: contactsType,
-    photos: PhotoType,
+    aboutMe: string;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    contacts: contactsType;
+    photos: PhotoType;
 };
 export type UserType = {
-    id: number,
-    name: string,
-    status: string,
-    photos: PhotoType,
-    followed: boolean,
+    id: number;
+    name: string;
+    status: string;
+    photos: PhotoType;
+    followed: boolean;
 };
-
-
