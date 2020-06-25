@@ -10,8 +10,8 @@ import store from './redux/redux-store';
 import { withSuspense } from './hoc/withSuspense';
 import { getAuthUserData } from './redux/auth-reducer';
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/Dialogs'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/Profile'));
 
 const App: React.FC = () => {
     const dispatch = useDispatch();

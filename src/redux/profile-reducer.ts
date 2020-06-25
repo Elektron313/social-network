@@ -15,6 +15,7 @@ type InitState = {
     profile: null | ProfileType;
     status: string;
     newPostText: string;
+    isLoading: boolean;
 };
 
 const initialState: InitState = {
@@ -24,6 +25,7 @@ const initialState: InitState = {
         { id: 3, message: 'Blabla', likesCount: 11 },
         { id: 4, message: 'Dada', likesCount: 11 },
     ],
+    isLoading: false,
     profile: null,
     status: '',
     newPostText: '',
@@ -33,6 +35,7 @@ type SavePhoto = PayloadAction<{ photo: PhotoType }>;
 type SetStatus = PayloadAction<{ status: string }>;
 type SetUserProfile = PayloadAction<{ profile: ProfileType }>;
 type DeletePost = PayloadAction<{ postId: number }>;
+type SetIsLoading = PayloadAction<{ isLoading: boolean }>
 
 const profileSlice = createSlice({
     name: 'profile',
@@ -62,11 +65,14 @@ const profileSlice = createSlice({
         deletePost: (state, { payload }: DeletePost) => {
             state.posts = state.posts.filter((p) => p.id !== payload.postId);
         },
+        setIsLoading: (state, { payload }: SetIsLoading) => {
+            state.isLoading = payload.isLoading;
+        },
     },
 });
 
 const { reducer: profileReducer } = profileSlice;
-export const { addPost, deletePost, savePhotoAccess, setStatus, setUserProfile } = profileSlice.actions;
+export const { addPost, deletePost, savePhotoAccess, setStatus, setUserProfile, setIsLoading } = profileSlice.actions;
 
 export type GetUserProfileThunk = BaseThunkType<SetUserProfile>;
 export const getUserProfile = (userId: number): GetUserProfileThunk => async (dispatch) => {
@@ -94,9 +100,9 @@ export const savePhoto = (file: File): SavePhotoTypeThunk => async (dispatch) =>
         dispatch(savePhotoAccess({ photo: data }));
     }
 };
-
-type SaveProfileThunk = BaseThunkType<FormAction>;
-export const saveProfile = (profile: ProfileType): SaveProfileThunk => async (
+export type SetEditMode = (P: boolean) => void;
+export type SaveProfileThunk = BaseThunkType<FormAction>;
+export const saveProfile = (profile: ProfileType, setEditMode: SetEditMode): SaveProfileThunk => async (
     dispatch,
     getState: () => AppStateType
 ) => {
@@ -105,6 +111,7 @@ export const saveProfile = (profile: ProfileType): SaveProfileThunk => async (
 
     if (response.resultCode === 0) {
         dispatch(getUserProfile(userId));
+        setEditMode(false);
     } else {
         dispatch(stopSubmit('edit-profile', { _error: response.messages[0] }));
         return Promise.reject(response.messages[0]);

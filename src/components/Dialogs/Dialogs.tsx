@@ -3,19 +3,24 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import AddMessageForm from './AddMessageForm/AddMessageForm';
-import { PropsDialogsType } from './DialogsContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType } from '../../redux/redux-store';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { sendMessage } from '../../redux/dialogs-reducer';
 
 export type AddNewMessageFormValueType = {
     newMessageBody: string;
 };
 
-const Dialogs: React.FC<PropsDialogsType> = (props) => {
-    const state = props.dialogsPage;
+const Dialogs: React.FC = () => {
+    const dispatch = useDispatch();
+    const { dialogs, messages } = useSelector((state: AppStateType) => state.dialogsPage)
 
-    const dialogsElements = state.dialogs.map((d) => <DialogItem name={d.name} key={d.id} id={d.id} />);
-    const messagesElements = state.messages.map((m) => <Message message={m.message} key={m.id} />);
+
+    const dialogsElements = dialogs.map((d) => <DialogItem name={d.name} key={d.id} id={d.id} />);
+    const messagesElements = messages.map((m) => <Message message={m.message} key={m.id} />);
     const addNewMessage = (values: AddNewMessageFormValueType) => {
-        props.sendMessage({ body: values.newMessageBody });
+        dispatch(sendMessage({ body: values.newMessageBody }));
     };
     return (
         <div className={s.dialogs}>
@@ -28,4 +33,4 @@ const Dialogs: React.FC<PropsDialogsType> = (props) => {
     );
 };
 
-export default Dialogs;
+export default withAuthRedirect(Dialogs) as React.ComponentType;

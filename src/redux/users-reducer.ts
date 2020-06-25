@@ -12,7 +12,6 @@ const initialState: InitialState = {
     currentPage: 1,
     isFetching: true,
     followingInProgress: [], // array of users id
-    fake: 10,
 };
 
 type InitialState = {
@@ -22,7 +21,6 @@ type InitialState = {
     currentPage: number;
     isFetching: boolean;
     followingInProgress: number[]; // array of users id
-    fake: number;
 };
 type FollowSuccess = PayloadAction<{ userId: number }>;
 type SetUsers = PayloadAction<{ users: UserType[] }>;

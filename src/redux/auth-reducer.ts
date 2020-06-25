@@ -13,7 +13,7 @@ const initialState: AuthState = {
     captchaUrl: null, // if null, then captcha is not required,
 };
 
-type SetAuth = {
+export type SetAuth = {
     userId: number | null;
     email: string | null;
     login: string | null;

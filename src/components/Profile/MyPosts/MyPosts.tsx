@@ -4,7 +4,9 @@ import Post from './Post/Post';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
 import { Textarea } from '../../common/FormsControls/FormsControls';
-import { MapStateToPropsType, MapDispatchToProps } from './MyPostsContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType } from '../../../redux/redux-store';
+import { addPost } from '../../../redux/profile-reducer';
 
 const maxLength10 = maxLengthCreator(10);
 
@@ -31,12 +33,14 @@ const AddNewPostForm: React.FC<InjectedFormProps<AddNewPostFormValueType>> = (pr
 
 const AddNewPostFormRedux = reduxForm<AddNewPostFormValueType>({ form: 'ProfileAddNewPostForm' })(AddNewPostForm);
 
-const MyPosts: React.FC<MapStateToPropsType & MapDispatchToProps> = (props) => {
-    const postsElements = [...props.posts]
+const MyPosts: React.FC = () => {
+    const dispatch = useDispatch();
+    const { posts } = useSelector((state: AppStateType) => state.profilePage);
+    const postsElements = [...posts]
         .reverse()
         .map((p) => <Post key={p.id} message={p.message} likesCount={p.likesCount} />);
     const onAddPost = (values: AddNewPostFormValueType) => {
-        props.addPost({ newPostText: values.newPostText });
+        dispatch(addPost({ newPostText: values.newPostText }));
     };
 
     return (

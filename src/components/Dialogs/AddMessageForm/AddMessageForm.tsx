@@ -18,7 +18,7 @@ const AddMessageForm: React.FC<InjectedFormProps<AddNewMessageFormValueType>> = 
                 />
             </div>
             <div>
-                <button>Send222</button>
+                <button>Send</button>
             </div>
         </form>
     );

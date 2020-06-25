@@ -10,12 +10,12 @@ type MessageType = {
     message: string;
 };
 
-type InitialState = {
+export type DialogsInitialState = {
     dialogs: DialogType[];
     messages: MessageType[];
 };
 
-const initialState: InitialState = {
+const initialState: DialogsInitialState = {
     dialogs: [
         { id: 1, name: 'Dimych' },
         { id: 2, name: 'Andrew' },

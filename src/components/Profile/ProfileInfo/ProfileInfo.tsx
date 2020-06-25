@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import userPhoto from '../../../assets/images/user.png';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import ProfileDataForm from './ProfileDataForm';
-import { PropsProfileType } from '../Profile';
 import { ProfileType } from '../../../Types/Types';
+import { SavePhoto, SaveProfile, UpdateStatus } from '../Profile';
+import { useDispatch } from 'react-redux';
+
+type PropsProfileType = {
+    isOwner: boolean;
+    profile: ProfileType | null;
+    status: string;
+    updateStatus: UpdateStatus;
+    savePhoto: SavePhoto;
+    saveProfile: SaveProfile;
+};
 
 const ProfileInfo: React.FC<PropsProfileType> = ({
     profile,
@@ -16,19 +26,19 @@ const ProfileInfo: React.FC<PropsProfileType> = ({
     saveProfile,
 }) => {
     const [editMode, setEditMode] = useState(false);
+    const dispatch = useDispatch();
 
     if (!profile) {
         return <Preloader />;
     }
 
-    // Пока не понял как типизировать
-    const onMainPhotoSelected = (e: any) => {
-        if (e.target.files.length) {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
             savePhoto(e.target.files[0]);
         }
     };
     const onSubmit = (formData: ProfileType) => {
-        saveProfile(formData).then(() => setEditMode(false));
+        dispatch(saveProfile(formData, setEditMode));
     };
     return (
         <div>
